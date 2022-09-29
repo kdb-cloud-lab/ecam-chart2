@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}-deploy
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}-deploy
+  template:
+    metadata:
+      name: {{ .Values.appName }}
+      labels:
+        app: {{ .Values.appName }}-deploy
+    spec:
+      containers:
+      - image: tanminkwan/ecam-app
+        imagePullPolicy: Always
+        name: {{ .Values.appName }}-con
+        env:
+        - name: DATABASE_URI
+          valueFrom:
+            secretKeyRef:
+              name: db-connections
+              key: database-uri
+        - name: REDIS_URI
+          valueFrom:
+            secretKeyRef:
+              name: db-connections
+              key: redis-uri
+        - name: STREAM_URL
+          valueFrom:
+            configMapKeyRef:
+              name: envs-ecam-app
+              key: stream-server-url
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        volumeMounts:
+        - mountPath: "/static/uploads"
+          name: {{ .Values.appName }}-vol
+      volumes:
+      - name: {{ .Values.appName }}-vol
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvcName }}
+  replicas: {{ .Values.appReplicaCount }}

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.cmsName }}-deploy
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.cmsName }}-deploy
+  template:
+    metadata:
+      name: {{ .Values.cmsName }}
+      labels:
+        app: {{ .Values.cmsName }}-deploy
+    spec:
+      containers:
+      - image: {{ .Values.cmsImage }}
+        imagePullPolicy: Always
+        name: {{ .Values.cmsName }}-con
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        volumeMounts:
+        - mountPath: "/home/hls/contents"
+          name: {{ .Values.cmsName }}-vol
+      volumes:
+      - name: {{ .Values.cmsName }}-vol
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvcName }}
+  replicas: {{ .Values.cmsReplicaCount }}
