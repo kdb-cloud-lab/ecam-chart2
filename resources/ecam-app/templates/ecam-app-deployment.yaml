@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.appName }}-deploy
+  name: {{ .Values.name.app }}-deploy
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.appName }}-deploy
+      app: {{ .Values.name.app }}-deploy
   template:
     metadata:
-      name: {{ .Values.appName }}
+      name: {{ .Values.name.app }}
       labels:
-        app: {{ .Values.appName }}-deploy
+        app: {{ .Values.name.app }}-deploy
     spec:
       containers:
-      - image: tanminkwan/ecam-app
+      - image: {{ .Values.image.app }}
         imagePullPolicy: Always
-        name: {{ .Values.appName }}-con
+        name: {{ .Values.name.app }}-con
         env:
         - name: DATABASE_URI
           valueFrom:
@@ -36,10 +36,10 @@ spec:
         - containerPort: 5000
           protocol: TCP
         volumeMounts:
-        - mountPath: "/static/uploads"
-          name: {{ .Values.appName }}-vol
+        - mountPath: {{ .Values.mountPath.app }}
+          name: {{ .Values.name.app }}-vol
       volumes:
-      - name: {{ .Values.appName }}-vol
+      - name: {{ .Values.name.app }}-vol
         persistentVolumeClaim:
           claimName: {{ .Values.pvcName }}
-  replicas: {{ .Values.appReplicaCount }}
+  replicas: {{ .Values.replicaCount.app }}

@@ -1,13 +1,26 @@
-appName: ecam-app
-cmsName: ecam-cms
-appImage: tanminkwan/ecam-app
-cmsImage: tanminkwan/ecam-cms
+nameSpace: ecam
+name:
+  app: ecam-app
+  cms: ecam-cms
+image:
+  app: tanminkwan/ecam-app
+  cms: tanminkwan/ecam-cms
+replicaCount:
+  app: 2
+  cms: 2
+nodePort:
+  app: 30080
+  cms: 30180
+ingressPath:
+  app: /
+  cms: /contents/
+mountPath:
+  app: "/static/uploads"
+  cms: "/home/hls/contents"
 domainName: app.ecampus.click
 streamServerUrl: http://app.ecampus.click
 databaseUri: 'postgresql://ecam:1q2w3e4r!!@ecam2.c9akrgwjyzgk.us-east-2.rds.amazonaws.com:5432/ecam'
 redisUri: 'redis://ecam2.unj9tc.ng.0001.use2.cache.amazonaws.com:6379'
-appReplicaCount: 2
-cmsReplicaCount: 2
-appNodePort: 30080
-cmsNodePort: 30180
+storageClassName: efs-sc
 pvcName: efs-claim
+storageSize: 1Gi

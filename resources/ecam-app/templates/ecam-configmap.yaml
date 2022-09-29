@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: envs-ecam-app
 data:
-  stream-server-url: http://app.ecampus.click
+  stream-server-url: {{ .Values.streamServerUrl }}

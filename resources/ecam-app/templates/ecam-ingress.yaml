@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ecam-ingress
-  namespace: ecam
+  namespace: {{ .Values.nameSpace }}
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: instance
@@ -12,17 +12,17 @@ spec:
     - host: {{ .Values.domainName }}
       http:
         paths:
-        - path: /contents/
+        - path: {{ .Values.ingressPath.cms }}
           pathType: Prefix
           backend:
             service:
-              name: {{ .Values.cmsName }}-service-lb
+              name: {{ .Values.name.cms }}-service-lb
               port:
                 number: 80
-        - path: /
+        - path: {{ .Values.ingressPath.app }}
           pathType: Prefix
           backend:
             service:
-              name: {{ .Values.appName }}-service-lb
+              name: {{ .Values.name.app }}-service-lb
               port:
                 number: 80
