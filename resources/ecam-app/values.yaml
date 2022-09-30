@@ -14,6 +14,7 @@ nodePort:
 ingressPath:
   app: /
   cms: /contents/
+  img: /images/
 mountPath:
   app: "/static/uploads"
   cms: "/home/hls/contents"
