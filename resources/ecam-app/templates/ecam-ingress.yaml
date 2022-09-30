@@ -12,6 +12,13 @@ spec:
     - host: {{ .Values.domainName }}
       http:
         paths:
+        - path: {{ .Values.ingressPath.img }}
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ .Values.name.cms }}-service-lb
+              port:
+                number: 80
         - path: {{ .Values.ingressPath.cms }}
           pathType: Prefix
           backend:
