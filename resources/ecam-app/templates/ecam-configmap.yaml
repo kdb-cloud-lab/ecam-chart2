@@ -4,3 +4,5 @@ metadata:
   name: envs-ecam-app
 data:
   stream-server-url: {{ .Values.streamServerUrl }}
+  kafka-brokers: {{ .Values.kafkaBrokers }}
+  
