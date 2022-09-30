@@ -32,6 +32,11 @@ spec:
             configMapKeyRef:
               name: envs-ecam-app
               key: stream-server-url
+        - name: KAFKA_BROKERS
+          valueFrom:
+            configMapKeyRef:
+              name: envs-ecam-app
+              key: kafka-brokers
         ports:
         - containerPort: 5000
           protocol: TCP
