@@ -20,6 +20,7 @@ mountPath:
   cms: "/home/hls/contents"
 domainName: app.ecampus.click
 streamServerUrl: http://app.ecampus.click
+kafkaBrokers: b-1.tiffanie9.vt7f60.c6.kafka.us-east-2.amazonaws.com:9092,b-2.tiffanie9.vt7f60.c6.kafka.us-east-2.amazonaws.com:9092
 databaseUri: 'postgresql://ecam:1q2w3e4r!!@ecam2.c9akrgwjyzgk.us-east-2.rds.amazonaws.com:5432/ecam'
 redisUri: 'redis://ecam2.unj9tc.ng.0001.use2.cache.amazonaws.com:6379'
 storageClassName: efs-sc
